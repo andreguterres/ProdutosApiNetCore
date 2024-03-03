@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using ProdutosApiNetCore.Data;
 using ProdutosApiNetCore.Entity;
+using ProdutosApiNetCore.Repo;
 
 namespace ProdutosApiNetCore.Controllers
 {
@@ -11,23 +10,32 @@ namespace ProdutosApiNetCore.Controllers
     [ApiController]
     public class PedidosController : ControllerBase
     {
-        private readonly AplicationDbContext _context;
+        //private readonly AplicationDbContext _context;
 
-        public PedidosController(AplicationDbContext context)
+        //public PedidosController(AplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+        private readonly IPedidos _pedidos;
+        public PedidosController(IPedidos pedidoRepositorio)
         {
-            _context = context;
+            _pedidos = pedidoRepositorio;
         }
+
+
 
         [HttpPost]
         public async Task<ActionResult<List<Pedido>>> Adicionar(Pedido pedido)
         {
-            if (pedido != null)
-            {
-                _context.Pedidos.Add(pedido);
-                await _context.SaveChangesAsync();
-                return Ok(await _context.Pedidos.ToListAsync());
-            }
-            return BadRequest("Erro ao incluir");
+          
+                var pedidos = await _pedidos.Adicionar(pedido);
+            //_context.Pedidos.Add(pedido);
+            //await _context.SaveChangesAsync();
+            //return Ok(await _context.Pedidos.ToListAsync());
+
+
+            return Ok(pedidos);
 
         }
 
@@ -35,9 +43,10 @@ namespace ProdutosApiNetCore.Controllers
 
         public async Task<ActionResult<IEnumerable<Pedido>>> Pesquisar()
         {
-            //var pedidos = await _context.Pedidos.AsNoTracking().ToListAsync();
-            var pedidos = _context.Pedidos.Include(i => i.Itens).ToList();
-                return Ok(pedidos.ToList());            
+            List<Pedido> pedido = await _pedidos.Pesquisar();
+
+            //var pedidos = _context.Pedidos.Include(i => i.Itens).ToList();
+            return Ok(pedido);            
 
         }
 

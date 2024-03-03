@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProdutosApiNetCore.Data;
+using ProdutosApiNetCore.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<AplicationDbContext>(Options =>
 {
     Options.UseSqlite(builder.Configuration.GetConnectionString("COnexaoPadrao"));
 });
+
+builder.Services.AddScoped<IPedidos, PedidoRepositorio>();
 
 
 var app = builder.Build();
