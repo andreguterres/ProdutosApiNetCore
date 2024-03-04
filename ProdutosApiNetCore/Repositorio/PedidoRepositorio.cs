@@ -23,7 +23,6 @@ namespace ProdutosApiNetCore.Repo
         {
             return  _context.Pedidos.Include(i => i.Itens).ToList();
 
-            //return pedidos;
         }
     }
 }

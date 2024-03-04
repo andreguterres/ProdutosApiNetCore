@@ -27,6 +27,7 @@ namespace ProdutosApiNetCore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFornecedor")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -44,6 +45,7 @@ namespace ProdutosApiNetCore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescricaoItem")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("NumeroPedido")

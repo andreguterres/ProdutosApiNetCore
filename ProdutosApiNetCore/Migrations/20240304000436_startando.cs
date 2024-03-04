@@ -16,7 +16,7 @@ namespace ProdutosApiNetCore.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NomeFornecedor = table.Column<string>(type: "TEXT", nullable: true),
+                    NomeFornecedor = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     DescontoGeral = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -32,7 +32,7 @@ namespace ProdutosApiNetCore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
                     Desconto = table.Column<decimal>(type: "TEXT", nullable: false),
-                    DescricaoItem = table.Column<string>(type: "TEXT", nullable: true),
+                    DescricaoItem = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     NumeroPedido = table.Column<int>(type: "INTEGER", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "TEXT", nullable: false),
                     ValorLiquido = table.Column<int>(type: "INTEGER", nullable: false),

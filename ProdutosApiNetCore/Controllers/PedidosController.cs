@@ -9,13 +9,7 @@ namespace ProdutosApiNetCore.Controllers
     [Route("api/[Controller]")]
     [ApiController]
     public class PedidosController : ControllerBase
-    {
-        //private readonly AplicationDbContext _context;
-
-        //public PedidosController(AplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
+    {  
 
         private readonly IPedidos _pedidos;
         public PedidosController(IPedidos pedidoRepositorio)
@@ -23,17 +17,11 @@ namespace ProdutosApiNetCore.Controllers
             _pedidos = pedidoRepositorio;
         }
 
-
-
         [HttpPost]
         public async Task<ActionResult<List<Pedido>>> Adicionar(Pedido pedido)
         {
-          
-                var pedidos = await _pedidos.Adicionar(pedido);
-            //_context.Pedidos.Add(pedido);
-            //await _context.SaveChangesAsync();
-            //return Ok(await _context.Pedidos.ToListAsync());
 
+            var pedidos = await _pedidos.Adicionar(pedido);
 
             return Ok(pedidos);
 
@@ -45,8 +33,7 @@ namespace ProdutosApiNetCore.Controllers
         {
             List<Pedido> pedido = await _pedidos.Pesquisar();
 
-            //var pedidos = _context.Pedidos.Include(i => i.Itens).ToList();
-            return Ok(pedido);            
+            return Ok(pedido);
 
         }
 

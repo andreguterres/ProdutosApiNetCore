@@ -11,7 +11,7 @@ using ProdutosApiNetCore.Data;
 namespace ProdutosApiNetCore.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20240303225715_startando")]
+    [Migration("20240304000436_startando")]
     partial class startando
     {
         /// <inheritdoc />
@@ -30,6 +30,7 @@ namespace ProdutosApiNetCore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFornecedor")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -47,6 +48,7 @@ namespace ProdutosApiNetCore.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescricaoItem")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("NumeroPedido")
