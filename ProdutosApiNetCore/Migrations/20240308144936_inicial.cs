@@ -5,7 +5,7 @@
 namespace ProdutosApiNetCore.Migrations
 {
     /// <inheritdoc />
-    public partial class startando : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +25,7 @@ namespace ProdutosApiNetCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Item",
+                name: "Itens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -33,7 +33,6 @@ namespace ProdutosApiNetCore.Migrations
                     Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
                     Desconto = table.Column<decimal>(type: "TEXT", nullable: false),
                     DescricaoItem = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    NumeroPedido = table.Column<int>(type: "INTEGER", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "TEXT", nullable: false),
                     ValorLiquido = table.Column<int>(type: "INTEGER", nullable: false),
                     ValorUnitario = table.Column<int>(type: "INTEGER", nullable: false),
@@ -41,17 +40,17 @@ namespace ProdutosApiNetCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Item", x => x.Id);
+                    table.PrimaryKey("PK_Itens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Item_Pedidos_PedidoId",
+                        name: "FK_Itens_Pedidos_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedidos",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_PedidoId",
-                table: "Item",
+                name: "IX_Itens_PedidoId",
+                table: "Itens",
                 column: "PedidoId");
         }
 
@@ -59,7 +58,7 @@ namespace ProdutosApiNetCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Item");
+                name: "Itens");
 
             migrationBuilder.DropTable(
                 name: "Pedidos");

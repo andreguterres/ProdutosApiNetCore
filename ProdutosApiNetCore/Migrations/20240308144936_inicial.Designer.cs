@@ -11,8 +11,8 @@ using ProdutosApiNetCore.Data;
 namespace ProdutosApiNetCore.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20240304000436_startando")]
-    partial class startando
+    [Migration("20240308144936_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,25 +20,7 @@ namespace ProdutosApiNetCore.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
 
-            modelBuilder.Entity("ProdutosApiNetCore.Entity.Pedido", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("DescontoGeral")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NomeFornecedor")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pedidos");
-                });
-
-            modelBuilder.Entity("ProdutosApiNetCore.Entity.Pedido+Item", b =>
+            modelBuilder.Entity("ProdutosApiNetCore.Entity.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,9 +32,6 @@ namespace ProdutosApiNetCore.Migrations
                     b.Property<string>("DescricaoItem")
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("NumeroPedido")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("PedidoId")
                         .HasColumnType("INTEGER");
@@ -73,10 +52,28 @@ namespace ProdutosApiNetCore.Migrations
 
                     b.HasIndex("PedidoId");
 
-                    b.ToTable("Item");
+                    b.ToTable("Itens");
                 });
 
-            modelBuilder.Entity("ProdutosApiNetCore.Entity.Pedido+Item", b =>
+            modelBuilder.Entity("ProdutosApiNetCore.Entity.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("DescontoGeral")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeFornecedor")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pedidos");
+                });
+
+            modelBuilder.Entity("ProdutosApiNetCore.Entity.Item", b =>
                 {
                     b.HasOne("ProdutosApiNetCore.Entity.Pedido", null)
                         .WithMany("Itens")

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProdutosApiNetCore.Data;
+using ProdutosApiNetCore.Dto;
 using ProdutosApiNetCore.Entity;
 using ProdutosApiNetCore.Repo;
 
@@ -12,16 +14,24 @@ namespace ProdutosApiNetCore.Controllers
     {  
 
         private readonly IPedidos _pedidos;
-        public PedidosController(IPedidos pedidoRepositorio)
+        private readonly IMapper _mapper;
+
+
+        public PedidosController(IPedidos pedidoRepositorio, IMapper mapper)
         {
             _pedidos = pedidoRepositorio;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Pedido>>> Adicionar(Pedido pedido)
+        public async Task<ActionResult<List<Pedido>>> Adicionar(AdicionarDto pedido)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            var pedidos = await _pedidos.Adicionar(pedido);
+            var pedidoDTO = _mapper.Map<Pedido>(pedido);
+
+            var pedidos = await _pedidos.Adicionar(pedidoDTO);
 
             return Ok(pedidos);
 

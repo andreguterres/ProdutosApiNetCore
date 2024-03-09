@@ -12,9 +12,11 @@ namespace ProdutosApiNetCore.Data
         
         }
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<Item> Itens { get; set; }
+
 
     }
-      
 
-    
+
+
 }
