@@ -19,12 +19,9 @@ namespace ProdutosApiNetCore.Migrations
 
             modelBuilder.Entity("ProdutosApiNetCore.Entity.Item", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("Desconto")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("DescricaoItem")
                         .HasMaxLength(100)
@@ -33,19 +30,25 @@ namespace ProdutosApiNetCore.Migrations
                     b.Property<int?>("PedidoId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("PorcentagemDescontoItem")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Quantidade")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ValorLiquido")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("ValorEconomizadoItem")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ValorLiquido")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ValorUnitario")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("ValorUnitario")
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("ItemId");
 
                     b.HasIndex("PedidoId");
 
@@ -54,18 +57,21 @@ namespace ProdutosApiNetCore.Migrations
 
             modelBuilder.Entity("ProdutosApiNetCore.Entity.Pedido", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PedidoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("DescontoGeral")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFornecedor")
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<decimal>("PorcentagemDescontoClienteFidelidade")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ValorTotalPedido")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PedidoId");
 
                     b.ToTable("Pedidos");
                 });

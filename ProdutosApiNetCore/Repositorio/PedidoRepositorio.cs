@@ -11,14 +11,7 @@ namespace ProdutosApiNetCore.Repo
         public PedidoRepositorio(AplicationDbContext context)
         {
             _context = context;
-        }
-        //public async Task<Pedido> Adicionar(AdicionarDto pedido)
-        //{
-        //    _context.Pedidos.Add(pedido);
-        //    await _context.SaveChangesAsync();
-        //    return pedido;
-        //}      
-
+        }   
         public async Task<List<Pedido>> Pesquisar()
         {
             return  _context.Pedidos.Include(i => i.Itens).ToList();
@@ -27,25 +20,36 @@ namespace ProdutosApiNetCore.Repo
 
         public async Task<object> Adicionar(Pedido pedido)
         {
-            _context.Pedidos.Add(pedido);
-            await _context.SaveChangesAsync();
-            return pedido;
-        }
+            var x = new Pedido();
 
-        public Task<Pedido> CalcularValores(Pedido pedido)
-        {
-            Pedido listapedido = new Pedido();
-            var obj = _context.Pedidos.SelectMany(x => x.Itens);
-            decimal valorTotal;
+            x.NomeFornecedor = pedido.NomeFornecedor?.ToUpper();
+            x.PorcentagemDescontoClienteFidelidade = pedido.PorcentagemDescontoClienteFidelidade;
 
             foreach (var item in pedido.Itens)
             {
-                valorTotal = item.Quantidade * item.ValorUnitario;
+                var valorTotal = item.ValorUnitario * item.Quantidade;
+                var valPorcetagem = valorTotal * item.PorcentagemDescontoItem / 100;
+                item.PorcentagemDescontoItem = item.PorcentagemDescontoItem;
+                item.ValorTotal = valorTotal;
+                item.ValorLiquido = valorTotal - valPorcetagem;
+                item.DescricaoItem = item.DescricaoItem?.ToUpper();
+                item.ValorEconomizadoItem = item.ValorTotal - item.ValorLiquido;
+
+                if (x.PorcentagemDescontoClienteFidelidade > 0)
+                {
+                    x.ValorTotalPedido += item.ValorLiquido * x.PorcentagemDescontoClienteFidelidade / 100;
+                }
+                else
+                {
+                    x.ValorTotalPedido += item.ValorLiquido;
+
+                }
+                x.Itens.Add(item);
             }
 
-           // listapedido.
-
-            throw new NotImplementedException();
+            _context.Pedidos.Add(x);
+            await _context.SaveChangesAsync();
+            return pedido;
         }
     }
 }

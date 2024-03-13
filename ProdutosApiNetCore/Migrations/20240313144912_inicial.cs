@@ -14,38 +14,40 @@ namespace ProdutosApiNetCore.Migrations
                 name: "Pedidos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    PedidoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     NomeFornecedor = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    DescontoGeral = table.Column<decimal>(type: "TEXT", nullable: false)
+                    PorcentagemDescontoClienteFidelidade = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorTotalPedido = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos", x => x.Id);
+                    table.PrimaryKey("PK_Pedidos", x => x.PedidoId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Itens",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    ItemId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
-                    Desconto = table.Column<decimal>(type: "TEXT", nullable: false),
+                    PorcentagemDescontoItem = table.Column<decimal>(type: "TEXT", nullable: false),
                     DescricaoItem = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     ValorTotal = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ValorLiquido = table.Column<int>(type: "INTEGER", nullable: false),
-                    ValorUnitario = table.Column<int>(type: "INTEGER", nullable: false),
+                    ValorLiquido = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorEconomizadoItem = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorUnitario = table.Column<decimal>(type: "TEXT", nullable: false),
                     PedidoId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Itens", x => x.Id);
+                    table.PrimaryKey("PK_Itens", x => x.ItemId);
                     table.ForeignKey(
                         name: "FK_Itens_Pedidos_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedidos",
-                        principalColumn: "Id");
+                        principalColumn: "PedidoId");
                 });
 
             migrationBuilder.CreateIndex(

@@ -6,8 +6,7 @@ namespace ProdutosApiNetCore.Dto
     public class AdicionarDto
     {
         public string? NomeFornecedor { get; set; }
-        public decimal DescontoGeral { get; set; }
-
+        public decimal PorcentagemDescontoClienteFidelidade { get; set; }
         public ICollection<ItemDto> Itens { get; set; } = new List<ItemDto>();
 
 
