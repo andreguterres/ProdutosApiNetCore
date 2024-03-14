@@ -31,7 +31,7 @@ namespace ProdutosApiNetCore.Controllers
 
             var pedidoDTO = _mapper.Map<Pedido>(pedido);
 
-          /*  var pedidos =*/ await _pedidos.Adicionar(pedidoDTO);
+            await _pedidos.Adicionar(pedidoDTO);
 
             return Ok();
 

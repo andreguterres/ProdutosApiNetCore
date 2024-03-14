@@ -15,7 +15,6 @@ namespace ProdutosApiNetCore.Repo
         public async Task<List<Pedido>> Pesquisar()
         {
             return _context.Pedidos.Include(i => i.Itens).ToList();
-
         }
 
         public async Task<object> Adicionar(Pedido pedido)
@@ -28,8 +27,7 @@ namespace ProdutosApiNetCore.Repo
 
 
             foreach (var item in pedido.Itens)
-            {
-               
+            {               
                 i++;
                 var itens = pedido.Itens.Count();
 
@@ -50,7 +48,6 @@ namespace ProdutosApiNetCore.Repo
                         x.DescontoPedido =  calculoPorcetagem;
                         x.ValorTotalPagar = x.ValorTotalPedido - calculoPorcetagem;
                     }
-
                     else
                     {
                         x.ValorTotalPagar += item.ValorLiquidoItem;
