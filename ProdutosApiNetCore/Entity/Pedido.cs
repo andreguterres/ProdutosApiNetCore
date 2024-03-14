@@ -11,6 +11,9 @@ namespace ProdutosApiNetCore.Entity
         public decimal PorcentagemDescontoClienteFidelidade { get; set; }
         public ICollection<Item> Itens { get; set; } = new List<Item>();
         public decimal ValorTotalPedido { get; set; }
+        public decimal DescontoPedido { get; set; }
+        public decimal ValorTotalPagar { get; set; }
+
 
     }
 }

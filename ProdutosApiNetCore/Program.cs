@@ -19,7 +19,7 @@ builder.Services.AddDbContext<AplicationDbContext>(Options =>
 
 builder.Services.AddAutoMapper(typeof(EntitiesToDtoMapping));
 
-builder.Services.AddScoped<IPedidos, PedidoRepositorio>();
+builder.Services.AddScoped<IPedidos, PedidoRepository>();
 
 
 var app = builder.Build();

@@ -18,7 +18,9 @@ namespace ProdutosApiNetCore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     NomeFornecedor = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     PorcentagemDescontoClienteFidelidade = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ValorTotalPedido = table.Column<decimal>(type: "TEXT", nullable: false)
+                    ValorTotalPedido = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DescontoPedido = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorTotalPagar = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,13 +33,13 @@ namespace ProdutosApiNetCore.Migrations
                 {
                     ItemId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuantidadeItem = table.Column<int>(type: "INTEGER", nullable: false),
                     PorcentagemDescontoItem = table.Column<decimal>(type: "TEXT", nullable: false),
                     DescricaoItem = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    ValorTotal = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ValorLiquido = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorTotalItem = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorLiquidoItem = table.Column<decimal>(type: "TEXT", nullable: false),
                     ValorEconomizadoItem = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ValorUnitario = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValorUnitarioItem = table.Column<decimal>(type: "TEXT", nullable: false),
                     PedidoId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

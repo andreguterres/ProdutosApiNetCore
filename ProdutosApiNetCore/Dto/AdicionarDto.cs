@@ -9,10 +9,6 @@ namespace ProdutosApiNetCore.Dto
         public decimal PorcentagemDescontoClienteFidelidade { get; set; }
         public ICollection<ItemDto> Itens { get; set; } = new List<ItemDto>();
 
-
-
-
-
     }
 }
 

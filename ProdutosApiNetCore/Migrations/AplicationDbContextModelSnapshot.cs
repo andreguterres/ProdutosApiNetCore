@@ -33,19 +33,19 @@ namespace ProdutosApiNetCore.Migrations
                     b.Property<decimal>("PorcentagemDescontoItem")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Quantidade")
+                    b.Property<int>("QuantidadeItem")
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("ValorEconomizadoItem")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("ValorLiquido")
+                    b.Property<decimal>("ValorLiquidoItem")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("ValorTotal")
+                    b.Property<decimal>("ValorTotalItem")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("ValorUnitario")
+                    b.Property<decimal>("ValorUnitarioItem")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ItemId");
@@ -61,11 +61,17 @@ namespace ProdutosApiNetCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("DescontoPedido")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("NomeFornecedor")
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("PorcentagemDescontoClienteFidelidade")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ValorTotalPagar")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("ValorTotalPedido")
