@@ -50,7 +50,7 @@ namespace ProdutosApiNetCore.Repo
                     }
                     else
                     {
-                        x.ValorTotalPagar += item.ValorLiquidoItem;
+                        x.ValorTotalPagar = x.ValorTotalPedido;
 
                     }
                 }
@@ -62,5 +62,6 @@ namespace ProdutosApiNetCore.Repo
             await _context.SaveChangesAsync();
             return pedido;
         }
+
     }
 }
