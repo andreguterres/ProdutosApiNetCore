@@ -61,14 +61,14 @@ namespace ProdutosApiNetCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("DescontoGeralPedido")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("DescontoPedido")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFornecedor")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("PorcentagemDescontoClienteFidelidade")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("ValorTotalPagar")

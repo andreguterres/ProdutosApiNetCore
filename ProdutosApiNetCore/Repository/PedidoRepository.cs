@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProdutosApiNetCore.Data;
 using ProdutosApiNetCore.Entity;
+using System.Linq;
 
 namespace ProdutosApiNetCore.Repo
 {
@@ -17,13 +18,20 @@ namespace ProdutosApiNetCore.Repo
             return _context.Pedidos.Include(i => i.Itens).ToList();
         }
 
+        public async Task<List<Pedido>> PesquisarId(int id)
+        {
+        
+         return _context.Pedidos.Include(i => i.Itens).Where(x=> x.PedidoId == id).ToList();
+
+        }
+
         public async Task<object> Adicionar(Pedido pedido)
         {
             int i = 0;
             var x = new Pedido();
 
             x.NomeFornecedor = pedido.NomeFornecedor?.ToUpper();
-            x.PorcentagemDescontoClienteFidelidade = pedido.PorcentagemDescontoClienteFidelidade;
+            x.DescontoGeralPedido = pedido.DescontoGeralPedido;
 
 
             foreach (var item in pedido.Itens)
@@ -42,9 +50,9 @@ namespace ProdutosApiNetCore.Repo
 
                 if (i >= itens )
                 {
-                    if (x.PorcentagemDescontoClienteFidelidade > 0)
+                    if (x.DescontoGeralPedido > 0)
                     {
-                        var calculoPorcetagem = x.ValorTotalPedido * x.PorcentagemDescontoClienteFidelidade / 100;
+                        var calculoPorcetagem = x.ValorTotalPedido * x.DescontoGeralPedido / 100;
                         x.DescontoPedido =  calculoPorcetagem;
                         x.ValorTotalPagar = x.ValorTotalPedido - calculoPorcetagem;
                     }
@@ -61,7 +69,6 @@ namespace ProdutosApiNetCore.Repo
             _context.Pedidos.Add(x);
             await _context.SaveChangesAsync();
             return pedido;
-        }
-
+        }    
     }
 }

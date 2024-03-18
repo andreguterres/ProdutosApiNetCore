@@ -7,6 +7,8 @@ namespace ProdutosApiNetCore.Repo
     {
         Task <object> Adicionar (Pedido pedido);
         Task <List<Pedido>> Pesquisar();
+        Task <List<Pedido>> PesquisarId(int id);
+
     }
 
 }

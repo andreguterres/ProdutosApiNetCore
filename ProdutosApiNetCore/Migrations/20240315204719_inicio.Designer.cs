@@ -11,8 +11,8 @@ using ProdutosApiNetCore.Data;
 namespace ProdutosApiNetCore.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20240314132040_inicial")]
-    partial class inicial
+    [Migration("20240315204719_inicio")]
+    partial class inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,14 +64,14 @@ namespace ProdutosApiNetCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("DescontoGeralPedido")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("DescontoPedido")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NomeFornecedor")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("PorcentagemDescontoClienteFidelidade")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("ValorTotalPagar")

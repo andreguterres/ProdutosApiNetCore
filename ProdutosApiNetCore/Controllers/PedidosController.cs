@@ -33,7 +33,7 @@ namespace ProdutosApiNetCore.Controllers
 
             await _pedidos.Adicionar(pedidoDTO);
 
-            return Ok();
+            return Ok("Pedido criado com sucesso!");
 
         }
 
@@ -47,6 +47,15 @@ namespace ProdutosApiNetCore.Controllers
 
         }
 
+        [HttpGet("/api/PesquisarId")]
+        public async Task<ActionResult<List<Pedido>>> PesquisarId(int id)
+        {
+            List<Pedido> pedido = await _pedidos.PesquisarId(id);
+
+            return Ok(pedido);
+
+
+        }
 
     }
 }
