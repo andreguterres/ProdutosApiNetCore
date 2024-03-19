@@ -18,7 +18,7 @@ namespace ProdutosApiNetCore.Repo
             return _context.Pedidos.Include(i => i.Itens).ToList();
         }
 
-        public async Task<List<Pedido>> PesquisarId(int id)
+        public async Task<List<Pedido>> PesquisarPorId(int id)
         {
         
          return _context.Pedidos.Include(i => i.Itens).Where(x=> x.PedidoId == id).ToList();
@@ -69,6 +69,17 @@ namespace ProdutosApiNetCore.Repo
             _context.Pedidos.Add(x);
             await _context.SaveChangesAsync();
             return pedido;
-        }    
+        }
+        public async Task<List<Pedido>> Deletar(int id)
+        {
+            var pedidoExluido = _context.Pedidos.Include(i => i.Itens).Where(x => x.PedidoId == id).First();
+
+            _context.Pedidos.Remove(pedidoExluido);
+
+            await _context.SaveChangesAsync();
+
+            return await _context.Pedidos.ToListAsync();
+        }
+
     }
 }

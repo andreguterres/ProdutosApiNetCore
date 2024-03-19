@@ -5,7 +5,7 @@
 namespace ProdutosApiNetCore.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

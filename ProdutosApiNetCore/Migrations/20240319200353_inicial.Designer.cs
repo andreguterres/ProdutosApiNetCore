@@ -11,8 +11,8 @@ using ProdutosApiNetCore.Data;
 namespace ProdutosApiNetCore.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20240315204719_inicio")]
-    partial class inicio
+    [Migration("20240319200353_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -9,7 +9,7 @@ namespace ProdutosApiNetCore.Entity
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Nome do Fornecedor deve ter entre 5 e 100 caracteres obrigatoriamente!")]
         public string? NomeFornecedor { get; set; }
         public decimal DescontoGeralPedido { get; set; }
-        public ICollection<Item> Itens { get; set; } = new List<Item>();
+        public List<Item> Itens { get; set; } = new List<Item>();
         public decimal ValorTotalPedido { get; set; }
         public decimal DescontoPedido { get; set; }
         public decimal ValorTotalPagar { get; set; }

@@ -50,11 +50,18 @@ namespace ProdutosApiNetCore.Controllers
         [HttpGet("/api/PesquisarId")]
         public async Task<ActionResult<List<Pedido>>> PesquisarId(int id)
         {
-            List<Pedido> pedido = await _pedidos.PesquisarId(id);
+            List<Pedido> pedido = await _pedidos.PesquisarPorId(id);
 
             return Ok(pedido);
 
+        }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _pedidos.Deletar(id);
+
+            return Ok("Foi deletado!");
         }
 
     }
