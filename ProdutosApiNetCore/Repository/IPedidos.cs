@@ -9,6 +9,8 @@ namespace ProdutosApiNetCore.Repo
         Task <List<Pedido>> Pesquisar();
         Task <List<Pedido>> PesquisarPorId(int id);
         Task<List<Pedido>> Deletar(int id);
+        Task<List<Pedido>> Atualizar(Pedido pedido);
+
     }
 
 }

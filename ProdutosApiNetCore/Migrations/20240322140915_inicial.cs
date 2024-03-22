@@ -17,7 +17,7 @@ namespace ProdutosApiNetCore.Migrations
                     PedidoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     NomeFornecedor = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    DescontoGeralPedido = table.Column<decimal>(type: "TEXT", nullable: false),
+                    CpfCadastrado = table.Column<decimal>(type: "TEXT", nullable: false),
                     ValorTotalPedido = table.Column<decimal>(type: "TEXT", nullable: false),
                     DescontoPedido = table.Column<decimal>(type: "TEXT", nullable: false),
                     ValorTotalPagar = table.Column<decimal>(type: "TEXT", nullable: false)

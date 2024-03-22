@@ -11,7 +11,7 @@ using ProdutosApiNetCore.Data;
 namespace ProdutosApiNetCore.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20240319200353_inicial")]
+    [Migration("20240322140915_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -64,7 +64,7 @@ namespace ProdutosApiNetCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("DescontoGeralPedido")
+                    b.Property<decimal>("CpfCadastrado")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("DescontoPedido")

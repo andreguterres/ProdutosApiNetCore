@@ -24,7 +24,7 @@ namespace ProdutosApiNetCore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Pedido>>> Adicionar(AdicionarDto pedido)
+        public async Task<ActionResult<List<Pedido>>> Adicionar(PedidoDto pedido)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -62,6 +62,16 @@ namespace ProdutosApiNetCore.Controllers
             await _pedidos.Deletar(id);
 
             return Ok("Foi deletado!");
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Atualizar(EditarPedidoDto pedido)
+        {
+            var pedidoDTO = _mapper.Map<Pedido>(pedido);
+
+            await _pedidos.Atualizar(pedidoDTO);
+
+            return Ok("Foi Atualizado!");
         }
 
     }

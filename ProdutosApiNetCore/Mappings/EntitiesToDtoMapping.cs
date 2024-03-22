@@ -8,7 +8,7 @@ namespace ProdutosApiNetCore.Mappings
     {
         public EntitiesToDtoMapping ()
         { 
-            CreateMap<Pedido,AdicionarDto>().ReverseMap();
+            CreateMap<Pedido,PedidoDto>().ReverseMap();
             CreateMap<Item, ItemDto>().ReverseMap();
 
         }

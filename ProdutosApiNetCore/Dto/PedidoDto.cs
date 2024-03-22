@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProdutosApiNetCore.Dto
 {
-    public class AdicionarDto
+    public class PedidoDto
     {
         public string? NomeFornecedor { get; set; }
-        public decimal DescontoGeralPedido { get; set; }
+        public bool CpfCadastrado { get; set; }
         public ICollection<ItemDto> Itens { get; set; } = new List<ItemDto>();
 
     }

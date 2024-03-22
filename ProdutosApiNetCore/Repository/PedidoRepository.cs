@@ -31,8 +31,8 @@ namespace ProdutosApiNetCore.Repo
             var x = new Pedido();
 
             x.NomeFornecedor = pedido.NomeFornecedor?.ToUpper();
-            x.DescontoGeralPedido = pedido.DescontoGeralPedido;
 
+            x.CpfCadastrado = pedido.CpfCadastrado;
 
             foreach (var item in pedido.Itens)
             {               
@@ -40,28 +40,23 @@ namespace ProdutosApiNetCore.Repo
                 var itens = pedido.Itens.Count();
 
                 var valorTotal = item.ValorUnitarioItem * item.QuantidadeItem;
-                var valPorcetagem = valorTotal * item.PorcentagemDescontoItem / 100;
+                var valPorcetagem = x.CpfCadastrado is true ? valorTotal * item.PorcentagemDescontoItem / 100 : 0;
                 item.PorcentagemDescontoItem = item.PorcentagemDescontoItem;
                 item.ValorTotalItem = valorTotal;
-                item.ValorLiquidoItem = valorTotal - valPorcetagem;
+                item.ValorLiquidoItem = x.CpfCadastrado is true ? valorTotal - valPorcetagem : valPorcetagem; 
                 item.DescricaoItem = item.DescricaoItem?.ToUpper();
-                item.ValorEconomizadoItem = item.ValorTotalItem - item.ValorLiquidoItem;
-                x.ValorTotalPedido += item.ValorLiquidoItem;
+                item.ValorEconomizadoItem = x.CpfCadastrado is true ? item.ValorTotalItem - item.ValorLiquidoItem:0;
+                x.ValorTotalPedido += valorTotal;
 
-                if (i >= itens )
-                {
-                    if (x.DescontoGeralPedido > 0)
-                    {
-                        var calculoPorcetagem = x.ValorTotalPedido * x.DescontoGeralPedido / 100;
-                        x.DescontoPedido =  calculoPorcetagem;
-                        x.ValorTotalPagar = x.ValorTotalPedido - calculoPorcetagem;
-                    }
-                    else
-                    {
-                        x.ValorTotalPagar = x.ValorTotalPedido;
+                x.DescontoPedido += item.ValorEconomizadoItem;
 
-                    }
-                }
+                if (i >= itens) 
+                { 
+                    
+                x.DescontoPedido = x.CpfCadastrado is true ? x.ValorTotalPedido - x.DescontoPedido : 0 ;
+                x.ValorTotalPagar = x.CpfCadastrado is true ? x.ValorTotalPedido - item.ValorLiquidoItem : x.ValorTotalPedido;
+
+                }     
 
                 x.Itens.Add(item);
             }
@@ -81,5 +76,25 @@ namespace ProdutosApiNetCore.Repo
             return await _context.Pedidos.ToListAsync();
         }
 
+        public Task<List<Pedido>> Atualizar(Pedido pedido)
+        {
+            var pedidoEditar = _context.Pedidos.Include(i => i.Itens).Where(x => x.PedidoId == pedido.PedidoId).First();
+
+            //foreach (var item in pedidoEditar)
+            //{
+            //    var x = _context.Pedidos.Include(i => i.Itens).ToArrayAsync();
+
+            //}
+  
+
+            //var item = pedidoEditar.Itens.Where(x=> x.ItemId == id).First();
+
+            //foreach (var item in pedido.Itens)
+            //{
+            //    pedidoEditar.Itens.
+            //}
+
+            throw new NotImplementedException();
+        }
     }
 }
