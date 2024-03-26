@@ -11,6 +11,7 @@ namespace ProdutosApiNetCore.Repo
         Task<List<Pedido>> Deletar(int id);
         Task<List<Pedido>> Atualizar(Pedido pedido);
 
+
     }
 
 }

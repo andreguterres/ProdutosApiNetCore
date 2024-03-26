@@ -27,42 +27,12 @@ namespace ProdutosApiNetCore.Repo
 
         public async Task<object> Adicionar(Pedido pedido)
         {
-            int i = 0;
-            var x = new Pedido();
+            Calculo(pedido);
 
-            x.NomeFornecedor = pedido.NomeFornecedor?.ToUpper();
+            _context.Pedidos.Add(pedido);
 
-            x.CpfCadastrado = pedido.CpfCadastrado;
-
-            foreach (var item in pedido.Itens)
-            {               
-                i++;
-                var itens = pedido.Itens.Count();
-
-                var valorTotal = item.ValorUnitarioItem * item.QuantidadeItem;
-                var valPorcetagem = x.CpfCadastrado is true ? valorTotal * item.PorcentagemDescontoItem / 100 : 0;
-                item.PorcentagemDescontoItem = item.PorcentagemDescontoItem;
-                item.ValorTotalItem = valorTotal;
-                item.ValorLiquidoItem = x.CpfCadastrado is true ? valorTotal - valPorcetagem : valPorcetagem; 
-                item.DescricaoItem = item.DescricaoItem?.ToUpper();
-                item.ValorEconomizadoItem = x.CpfCadastrado is true ? item.ValorTotalItem - item.ValorLiquidoItem:0;
-                x.ValorTotalPedido += valorTotal;
-
-                x.DescontoPedido += item.ValorEconomizadoItem;
-
-                if (i >= itens) 
-                { 
-                    
-                x.DescontoPedido = x.CpfCadastrado is true ? x.ValorTotalPedido - x.DescontoPedido : 0 ;
-                x.ValorTotalPagar = x.CpfCadastrado is true ? x.ValorTotalPedido - item.ValorLiquidoItem : x.ValorTotalPedido;
-
-                }     
-
-                x.Itens.Add(item);
-            }
-
-            _context.Pedidos.Add(x);
             await _context.SaveChangesAsync();
+
             return pedido;
         }
         public async Task<List<Pedido>> Deletar(int id)
@@ -96,5 +66,43 @@ namespace ProdutosApiNetCore.Repo
 
             throw new NotImplementedException();
         }
+
+        public void Calculo (Pedido pedido)
+        {
+            int i = 0;
+            var x = new Pedido();
+
+            pedido.NomeFornecedor = pedido.NomeFornecedor?.ToUpper();
+
+            pedido.CpfCadastrado = pedido.CpfCadastrado;
+
+            foreach (var item in pedido.Itens)
+            {
+                i++;
+                var itens = pedido.Itens.Count();
+
+                var valorTotal = item.ValorUnitarioItem * item.QuantidadeItem;
+                var valPorcetagem = pedido.CpfCadastrado is true ? valorTotal * item.PorcentagemDescontoItem / 100 : 0;
+                item.PorcentagemDescontoItem = item.PorcentagemDescontoItem;
+                item.ValorTotalItem = valorTotal;
+                item.ValorLiquidoItem = pedido.CpfCadastrado is true ? valorTotal - valPorcetagem : valPorcetagem;
+                item.DescricaoItem = item.DescricaoItem?.ToUpper();
+                item.ValorEconomizadoItem = pedido.CpfCadastrado is true ? item.ValorTotalItem - item.ValorLiquidoItem : 0;
+                pedido.ValorTotalPedido += valorTotal;
+                pedido.DescontoPedido += item.ValorEconomizadoItem;
+
+
+                if (i >= itens)
+                {
+                    pedido.DescontoPedido = pedido.CpfCadastrado is true ? pedido.DescontoPedido : 0;
+
+                    pedido.ValorTotalPagar = pedido.CpfCadastrado is true ? pedido.ValorTotalPedido - pedido.DescontoPedido : pedido.ValorTotalPedido;
+                }
+
+                x.Itens.Add(item);
+            }
+
+        }
+
     }
 }
