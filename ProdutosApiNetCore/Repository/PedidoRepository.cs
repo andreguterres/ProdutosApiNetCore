@@ -48,14 +48,24 @@ namespace ProdutosApiNetCore.Repo
 
         public Task<List<Pedido>> Atualizar(Pedido pedido)
         {
-            var pedidoEditar = _context.Pedidos.Include(i => i.Itens).Where(x => x.PedidoId == pedido.PedidoId).First();
+            var pedidoEditar = _context.Pedidos.Include(i => i.Itens).Where(x => x.PedidoId == pedido.PedidoId);
+            var listaItens = _context.Itens.Select(x => x.ItemId).ToList();
 
-            //foreach (var item in pedidoEditar)
-            //{
-            //    var x = _context.Pedidos.Include(i => i.Itens).ToArrayAsync();
+            foreach (var item in pedido.Itens)
+            {
 
-            //}
-  
+
+                //if (item.ItemId = listaItens.)
+                //{
+
+                //}
+
+
+                //item.NomeFornecedor = pedido.NomeFornecedor != null ? item.NomeFornecedor : pedido.NomeFornecedor;
+
+               
+            }
+
 
             //var item = pedidoEditar.Itens.Where(x=> x.ItemId == id).First();
 

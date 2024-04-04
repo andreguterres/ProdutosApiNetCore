@@ -64,15 +64,15 @@ namespace ProdutosApiNetCore.Controllers
             return Ok("Foi deletado!");
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Atualizar(EditarPedidoDto pedido)
-        {
-            var pedidoDTO = _mapper.Map<Pedido>(pedido);
+        //[HttpPut]
+        //public async Task<ActionResult> Atualizar(EditarPedidoDto pedido)
+        //{
+        //    var pedidoDTO = _mapper.Map<Pedido>(pedido);
 
-            await _pedidos.Atualizar(pedidoDTO);
+        //    await _pedidos.Atualizar(pedidoDTO);
 
-            return Ok("Foi Atualizado!");
-        }
+        //    return Ok("Foi Atualizado!");
+        //}
 
     }
 }
