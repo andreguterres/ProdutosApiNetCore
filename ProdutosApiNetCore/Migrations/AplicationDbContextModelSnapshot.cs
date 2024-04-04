@@ -61,8 +61,8 @@ namespace ProdutosApiNetCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("CpfCadastrado")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("CpfCadastrado")
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("DescontoPedido")
                         .HasColumnType("TEXT");
