@@ -48,13 +48,27 @@ namespace ProdutosApiNetCore.Repo
 
         public Task<List<Pedido>> Atualizar(Pedido pedido)
         {
+            var x = new Pedido();
+
+            object[] x; 
+
             var pedidoEditar = _context.Pedidos.Include(i => i.Itens).Where(x => x.PedidoId == pedido.PedidoId);
-            var listaItens = _context.Itens.Select(x => x.ItemId).ToList();
+            var pedidoListaItens = _context.Pedidos.Include(i => i.Itens).Where(x => x.PedidoId == pedido.PedidoId).Select(i => i.Itens);
+
+            //var listaItens = _context.Itens.Select(x => x.ItemId).ToList();
+            var listaItens = pedidoEditar.SelectMany(i => i.Itens);
 
             foreach (var item in pedido.Itens)
             {
 
-
+                foreach (var i in listaItens)
+                {
+                    if (item.ItemId == i.ItemId)
+                    {
+                        i.ValorUnitarioItem = item.ValorUnitarioItem ;
+                    }
+                }
+                x.Itens.Add(item);
                 //if (item.ItemId = listaItens.)
                 //{
 
@@ -63,8 +77,19 @@ namespace ProdutosApiNetCore.Repo
 
                 //item.NomeFornecedor = pedido.NomeFornecedor != null ? item.NomeFornecedor : pedido.NomeFornecedor;
 
-               
+
             }
+
+            foreach (var listItens in pedido.Itens)
+            {
+                x.Itens.Add(listItens);
+            }
+
+            //foreach (var item in )
+            //{
+
+            //}
+
 
 
             //var item = pedidoEditar.Itens.Where(x=> x.ItemId == id).First();
